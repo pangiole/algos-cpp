@@ -1,4 +1,7 @@
-// The simples program ever!
+#include <iostream>
+
+// Just say hello world!
 int main() {
+    std::cout << "Hello world!" << std::endl;
     return 0;
 }
