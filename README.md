@@ -2,53 +2,36 @@
 Algorithms and data structures in C++ language.
 
 ## build
-The `g++` command might feel like a single step, but it is actually a "compiler driver" that coordinates a four-stage pipeline. Each stage takes the output of the previous one and transforms it closer and closer to machine code.
+To build this project, just use the `make` tool:
 
-```text
-    Source Code (.cpp, .h)
-             |
-             v
-    +------------------+
-    |   Preprocessor   |  Stage 1: Handles #include, #define, etc.
-    +------------------+
-             | (Preprocessed Source)
-             v
-    +------------------+
-    |     Compiler     |  Stage 2: Translates C++ to Assembly
-    +------------------+
-             | (Assembly Code)
-             v
-    +------------------+
-    |    Assembler     |  Stage 3: Translates Assembly to Machine Code
-    +------------------+
-             | (Object Code)
-             v
-    +------------------+
-    |      Linker      |  Stage 4: Links object files and libraries
-    +------------------+
-             |
-             v
-         Executable
+```
+make clean
+make all
 ```
 
-To build this project, by stopping at every stage of the pipeline, do the following:
 
-1. **Preprocessor**  
-    ```sh
-    g++ -E main.cpp
-    ```
-2. **Compiler**
-   ```sh
-    g++ -S main.cpp
-    ```
-3. **Assembler**
-   ```sh
-    g++ -c main.cpp
-    ```
-4. **Linker**
-   ```sh
-   g++ main.o -o app
-   ```
+
+### Makefile
+The Makefile is a simple way to automate the build process. A Makefile is made up of rules. Each rule looks like this:
+
+```makefile
+target: prerequisites
+    command
+    command
+    # ... 
+```
+
+The target is usually the name of the file that the rule will create (for example `app`). Sometimes, targets can also label tasks that are not files (for example the `all` and `clean` phony targets). The prerequisites are the files that the rule depends on (for example `main.cpp`). The commands are the command lines that will be executed when the rule is invoked (for example `g++ -o app main.cpp`). 
+
+```makefile
+all: app
+
+app: main.cpp
+    g++ -o app main.cpp
+
+clean:
+    rm -f app    
+```
 
 
 ## run
@@ -59,8 +42,5 @@ To run this project, once it's built, use the following command:
 
 ## questions
 Ask for the following questions:
-- How about the `#include<iostream>` directive and the role of the preprocessor?
-- How about the linker and the symbol relocation mechanism?
-- How about the loader and the process of loading the executable?
-- What's the difference between the statically linked versus dynamically linked executable?
-- What is the ELF - Executable and Linkable Format?
+- What is make tool and Makefile?
+- What are the best alternatives to make tool?
