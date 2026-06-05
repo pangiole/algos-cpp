@@ -2,4 +2,4 @@
 *.i
 *.o
 *.s
-test
+build
