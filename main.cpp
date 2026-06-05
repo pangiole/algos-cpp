@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "./include/searching.hpp"
+#include "searching.hpp"
 
 int main() {
     constexpr char arr[] = {'h', 'e', 'l', 'l', 'o', 'w', 'o', 'r', 'l', 'd'};

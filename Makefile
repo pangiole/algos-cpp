@@ -1,20 +1,21 @@
 # GNU toolchain
 CC := g++-15
 
+INCLUDEDIR = ./include
+CXXFLAGS += -I$(INCLUDEDIR)
 
 .PHONY: all
 all: app
 
-
 # Preprocessor --> Compiler --> Assembler
 searching.o: src/searching.cpp
-	$(CC) -c src/searching.cpp -o searching.o
+	$(CC) $(CXXFLAGS) -c src/searching.cpp -o searching.o
 
-searching.o: include/searching.hpp
+searching.o: $(INCLUDEDIR)/searching.hpp
 
 # Preprocessor --> Compiler --> Assembler
 main.o: main.cpp
-	$(CC) -c main.cpp -o main.o
+	$(CC) $(CXXFLAGS) -c main.cpp -o main.o
 
 
 # Linker
