@@ -1,6 +1,21 @@
 # algos-cpp
 Algorithms and data structures in C++ language.
 
+## requirements
+
+```sh
+brew install gcc
+brew install catch2
+```
+
+Operating systems' package managers (such as `brew` for macOS, or `apt` for Ubuntu Linux) install header files into standard paths like `/usr/include/` and the compiled library blobs (binary large object files) into `/usr/lib/`. Your compiler searches these directories automatically. 
+
+```sh
+ls /opt/homebrew/include
+ls /opt/homebrew/lib
+```
+
+
 ## build
 To build this project, just use the `make` tool:
 

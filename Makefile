@@ -1,28 +1,36 @@
 # GNU toolchain
-CC := g++-15
+CC := clang++
+
+CXXFLAGS = -std=c++23 -Wall -Wextra
+
+CATCH2 := $(shell brew --prefix catch2)
 
 INCLUDEDIR = ./include
 CXXFLAGS += -I$(INCLUDEDIR)
+CXXFLAGS += -I$(CATCH2)/include
+LDFLAGS = -L$(CATCH2)/lib -lCatch2Main -lCatch2
+
 
 .PHONY: all
-all: app
+all: test
+	@echo "Running test"
+	./test
 
-# Preprocessor --> Compiler --> Assembler
 searching.o: src/searching.cpp
 	$(CC) $(CXXFLAGS) -c src/searching.cpp -o searching.o
 
 searching.o: $(INCLUDEDIR)/searching.hpp
 
 # Preprocessor --> Compiler --> Assembler
-main.o: main.cpp
-	$(CC) $(CXXFLAGS) -c main.cpp -o main.o
+test.o: tests/main.cpp
+	$(CC) $(CXXFLAGS) -c tests/main.cpp -o test.o
 
 
 # Linker
-app: main.o searching.o
-	$(CC) main.o searching.o -o app
+test: test.o searching.o
+	$(CC) $(LDFLAGS) test.o searching.o -o test
 
 
 .PHONY: clean
 clean:
-	rm -f main.o searching.o app
+	rm -f test.o searching.o test
