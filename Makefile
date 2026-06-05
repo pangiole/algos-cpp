@@ -1,40 +1,27 @@
 # GNU toolchain
 CC := g++-15
 
-# macOS toolchain
-#CC := clang++
 
 .PHONY: all
 all: app
 
-#                   ----------------
-# 1)   main.cpp -->   PREPROCESSOR   --> main.i  (still human readable)
-#                   ----------------
-#
-main.i: main.cpp
-	$(CC) -E main.cpp -o main.i
+
+# Preprocessor --> Compiler --> Assembler
+searching.o: src/searching.cpp
+	$(CC) -c src/searching.cpp -o searching.o
+
+searching.o: include/searching.hpp
+
+# Preprocessor --> Compiler --> Assembler
+main.o: main.cpp
+	$(CC) -c main.cpp -o main.o
 
 
-#                    ----------
-# 2)   main.i  -->    COMPILER   --> main.s      (still human readable)
-#                    ----------
-main.s: main.i
-	$(CC) -S main.i -o main.s
-
-#                   -------------
-# 3)   main.s  -->    ASSEMBLER    --> main.o     (machine binary code)
-#                   -------------
-main.o: main.s
-	$(CC) -c main.s -o main.o
-
-
-#                  -----------
-# 4)   main.o  -->   LINKER    --> app (final executable)
-#                  -----------
-app: main.o
-	$(CC) main.o -o app
+# Linker
+app: main.o searching.o
+	$(CC) main.o searching.o -o app
 
 
 .PHONY: clean
 clean:
-	rm -f main.i main.s main.o app
+	rm -f main.o searching.o app
